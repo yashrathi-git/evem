@@ -1,6 +1,6 @@
 from base import Base
 from sqlalchemy import Column, String, Date, Integer, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 from exceptions import InvalidFormat, InvalidDate
 import datetime
 
@@ -35,8 +35,8 @@ class Event(Base):
 
     def __repr__(self):
         return (
-            (f'<Event({self.id}, {self.title}, {self.short_description}, {self.date_created}, '
-             f'{self.long_description}>')
+            (f'<Event({self.id}, "{self.title}", "{self.short_description}", "{self.date_created}", '
+             f'"{self.long_description}">')
         )
 
     def __init__(self, title, short_description, long_description, date_created=None):
@@ -45,14 +45,21 @@ class Event(Base):
         self.long_description = long_description
         self.date_created = parse_date(date_created)
 
+    def __str__(self):
+        return f'Event({self.id})'
+
 
 class ReminderDates(Base):
     __tablename__ = 'reminder_dates'
     id = Column(Integer, primary_key=True)
     date = Column('date', Date)
     event_id = Column(Integer, ForeignKey('events.id'))
-    event = relationship("Event", backref="reminder_dates")
+    event = relationship("Event", backref=backref(
+        "reminder_dates", cascade="all,delete"))
 
     def __init__(self, event, date=None):
         self.date = parse_date(date)
         self.event = event
+
+    def __repr__(self):
+        return f'<ReminderDates({self.id}, "{self.date}", {self.event_id}, {self.event})>'
