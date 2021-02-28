@@ -204,7 +204,7 @@ def new(commit):
         print('Run following commands to complete event creation:')
         print(f'Edit the file with suitable description{Style.RESET_ALL}')
         print(f'\n>> {Fore.LIGHTBLUE_EX}nano {markdown_file}{Style.RESET_ALL}')
-        print(f'>> {Fore.LIGHTBLUE_EX}mll event new --markdown{Style.RESET_ALL}')
+        print(f'>> {Fore.LIGHTBLUE_EX}mll event new --commit{Style.RESET_ALL}')
 
     else:
         model_objects = unpickle_object()
