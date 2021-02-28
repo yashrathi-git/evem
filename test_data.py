@@ -1,15 +1,18 @@
 from mylifelogger.models import ReminderDates, Event
 from mylifelogger import Session, engine, Base
-
+import datetime
 Base.metadata.create_all(engine)
 
 session = Session()
 
-anniversary = Event('Parents anniversary', "Parents anniversary", "")
-birthday = Event('Mother\'s birthday', "", "")
+anniversary = Event('Parents anniversary',
+                    "Parents anniversary", "", datetime.date.today())
+birthday = Event('Mother\'s birthday', "", "", datetime.date.today())
 
-rda = ReminderDates(anniversary)
-rda2 = ReminderDates(anniversary, '12-03-2020')
+rda = ReminderDates(anniversary, datetime.date.today(),
+                    date=datetime.date.today())
+rda2 = ReminderDates(anniversary, datetime.date.today(),
+                     date=datetime.date.today())
 
 # session.add(anniversary)
 # session.add(birthday)

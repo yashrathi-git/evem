@@ -1,26 +1,6 @@
 from mylifelogger import Base
-from sqlalchemy import Column, String, Date, Integer, ForeignKey, Boolean
+from sqlalchemy import Column, String, Date, Integer, ForeignKey, Boolean, PickleType
 from sqlalchemy.orm import relationship, backref
-from mylifelogger.exceptions import InvalidFormat, InvalidDate
-import datetime
-
-
-def parse_date(str_date):
-    if str_date:
-        # str_date format => dd-mm-yyyy
-        str_date = str_date.split('-')
-        try:
-            str_date = [int(x) for x in str_date]
-            str_date = datetime.date(*str_date[::-1])
-        except ValueError:
-            raise InvalidFormat(f'Date not in valid format')
-
-        if str_date > datetime.date.today():
-            raise InvalidDate(
-                'Date created cannot be greater than today\'s date')
-    else:
-        str_date = datetime.date.today()
-    return str_date
 
 
 class Event(Base):
@@ -39,11 +19,11 @@ class Event(Base):
              f'"{self.long_description}">')
         )
 
-    def __init__(self, title, short_description, long_description, date_created=None):
+    def __init__(self, title, short_description, long_description, date_created):
         self.title = title
         self.short_description = short_description
         self.long_description = long_description
-        self.date_created = parse_date(date_created)
+        self.date_created = date_created
 
     def __str__(self):
         return f'Event({self.id})'
@@ -52,21 +32,37 @@ class Event(Base):
 class ReminderDates(Base):
     __tablename__ = 'reminder_dates'
     id = Column(Integer, primary_key=True)
-    time_delta = Column('time_delta', Date, nullable=False)
+    # Relative delta
+    year_delta = Column('year_delta', Integer, nullable=False)
+    month_delta = Column('month_delta', Integer, nullable=False)
+    day_delta = Column('day_delta', Integer, nullable=False)
+    # Reminder Date
     date = Column('date', Date, nullable=False)
+    # How many times to repeat
     repeat = Column('repeat', Integer, default=1, nullable=False)
     repeat_forever = Column('repeat_forever', Boolean, default=False)
+    # Which event it's associated with
     event_id = Column(Integer, ForeignKey('events.id'))
     event = relationship("Event", backref=backref(
         "reminder_dates", cascade="all,delete"))
 
-    def __init__(self, event, time_delta, repeat=1, repeat_forever=False, date=None):
+    def __init__(self, event, day_delta, month_delta, year_delta, repeat=1,
+                 repeat_forever=False, date=None):
         self.date = date
         self.repeat = repeat
         self.repeat_forever = repeat_forever
         self.event = event
-        self.time_delta = time_delta
+        self.day_delta = day_delta
+        self.month_delta = month_delta
+        self.year_delta = year_delta
 
     def __repr__(self):
-        return f'<ReminderDates({self.id}, "{self.date}", {self.repeat},\
-                {self.repeat_forever}, {self.event_id}, {self.event})>'
+        repres = ('<ReminderDates('
+                  f'event = {self.event}, '
+                  f'day_delta = {self.day_delta}, '
+                  f'month_delta = {self.month_delta}, '
+                  f'year_delta = {self.year_delta}, '
+                  f'repeat = {self.repeat}, '
+                  f'repeat_forever = {self.repeat_forever}, '
+                  f'date = {self.date})>')
+        return repres

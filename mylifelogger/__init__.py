@@ -8,4 +8,10 @@ DB_PATH = os.path.join(BASEDIR, 'database/data.sqlite')
 
 engine = create_engine('sqlite:///'+DB_PATH)
 Base = declarative_base()
-Session = sessionmaker(bind=engine)
+
+_SessionFactory = sessionmaker(bind=engine)
+
+
+def session_factory():
+    Base.metadata.create_all(engine)
+    return _SessionFactory()
