@@ -1,7 +1,7 @@
-from base import Base
-from sqlalchemy import Column, String, Date, Integer, ForeignKey
+from mylifelogger import Base
+from sqlalchemy import Column, String, Date, Integer, ForeignKey, Boolean
 from sqlalchemy.orm import relationship, backref
-from exceptions import InvalidFormat, InvalidDate
+from mylifelogger.exceptions import InvalidFormat, InvalidDate
 import datetime
 
 
@@ -52,14 +52,21 @@ class Event(Base):
 class ReminderDates(Base):
     __tablename__ = 'reminder_dates'
     id = Column(Integer, primary_key=True)
-    date = Column('date', Date)
+    time_delta = Column('time_delta', Date, nullable=False)
+    date = Column('date', Date, nullable=False)
+    repeat = Column('repeat', Integer, default=1, nullable=False)
+    repeat_forever = Column('repeat_forever', Boolean, default=False)
     event_id = Column(Integer, ForeignKey('events.id'))
     event = relationship("Event", backref=backref(
         "reminder_dates", cascade="all,delete"))
 
-    def __init__(self, event, date=None):
-        self.date = parse_date(date)
+    def __init__(self, event, time_delta, repeat=1, repeat_forever=False, date=None):
+        self.date = date
+        self.repeat = repeat
+        self.repeat_forever = repeat_forever
         self.event = event
+        self.time_delta = time_delta
 
     def __repr__(self):
-        return f'<ReminderDates({self.id}, "{self.date}", {self.event_id}, {self.event})>'
+        return f'<ReminderDates({self.id}, "{self.date}", {self.repeat},\
+                {self.repeat_forever}, {self.event_id}, {self.event})>'

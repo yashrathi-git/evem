@@ -1,5 +1,5 @@
-from models import ReminderDates, Event
-from base import Session, engine, Base
+from mylifelogger.models import ReminderDates, Event
+from mylifelogger import Session, engine, Base
 
 Base.metadata.create_all(engine)
 
