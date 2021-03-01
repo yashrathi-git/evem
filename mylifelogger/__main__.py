@@ -15,6 +15,7 @@ def query_data(id=None):
     if id is None:
         session = session_factory()
         return session.query(Event).order_by(Event.date_created).all()
+        session.close()
 
 
 def print_date(years, months, days):
