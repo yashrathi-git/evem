@@ -6,6 +6,8 @@ import mistune
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import html
+from jinja2 import Template
+from bs4 import BeautifulSoup
 
 
 class HighlightRenderer(mistune.HTMLRenderer):
@@ -25,16 +27,27 @@ def send_mail(id):
     body = content.long_description
     title = content.title
     date_created = content.date_created
-
+    short_description = content.short_description
     plugins = ['strikethrough', 'footnotes',
                'table', 'url', 'task_lists']
     markdown = mistune.create_markdown(
         renderer=HighlightRenderer(), plugins=plugins)
     html = markdown(body)
 
+    template_file = 'email_template.html'
+    # Set up jinja templates
+    with open(path_join(BASEDIR, 'templates', template_file)) as file:
+        template = Template(file.read())
+    template_vars = {'email_content': html,
+                     'title': title, 'date_created': date_created.strftime("%B %d, %Y"),
+                     'short_description': short_description}
+    raw_html = template.render(template_vars)
+
     with open(path_join(BASEDIR, 'css', 'colorful.css')) as file:
         try:
-            html = transform(html, remove_classes=True, css_text=file.read())
+            html = str(BeautifulSoup(transform(raw_html, remove_classes=True,
+                                               css_text=file.read()),
+                                     'html.parser').prettify(formatter="html"))
         except Exception as e:
             print("Unable to add styles.")
             print('Exception: ' + str(e))
@@ -43,4 +56,4 @@ def send_mail(id):
         file.write(html)
 
 
-send_mail(3)
+send_mail(7)
