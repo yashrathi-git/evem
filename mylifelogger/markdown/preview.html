@@ -5,7 +5,7 @@
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
   <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
   <title>
-   Started learning JS today
+   mylifelogger
   </title>
   <style type="text/css">
    div[style*="margin: 16px 0;"] {margin:0}
@@ -31,7 +31,7 @@
            </a>
           </h1>
           <p style="font-size:16px; font-weight:300; margin:0">
-           Started learning JS today
+           mylifelogger
           </p>
          </td>
         </tr>
@@ -40,7 +40,7 @@
           <strong>
            Short Description:
           </strong>
-          Started to learn JS today
+          mylifelogger
          </td>
         </tr>
         <tr>
@@ -66,100 +66,6 @@ Variables can be used with this syntax =>
             Time since event
            </strong>
            : a moment
-          </p>
-          <h1 style="font-family:sans-serif; font-weight:500; margin:0; font-size:200%">
-           Vimeo Downloader
-          </h1>
-          <p>
-           Download Vimeo videos and retrieve metadata such as views, likes, comments, duration.
-          </p>
-          <ul>
-           <li style="font-size:100%">
-            <p>
-             Easy to use and friendly API.
-            </p>
-           </li>
-           <li style="font-size:100%">
-            <p>
-             Support for downloading private and embed Vimeo videos.
-            </p>
-           </li>
-           <li style="font-size:100%">
-            <p>
-             Retrieve direct URL for the video file.
-            </p>
-           </li>
-           <li style="font-size:100%">
-            <p>
-             Tested on Python and 3.6, 3.7, 3.8, 3.9
-            </p>
-           </li>
-          </ul>
-          <h2 style="font-family:sans-serif; font-weight:500; margin:0; font-size:125%">
-           Installation
-          </h2>
-          <div style="background:#fff">
-           <pre style="border-radius:3px; font-size:85%; line-height:1.45; padding:16px"><span></span>pip install vimeo_downloader
-</pre>
-          </div>
-          <h2 style="font-family:sans-serif; font-weight:500; margin:0; font-size:125%">
-           Usage
-          </h2>
-          <div style="background:#fff">
-           <pre style="border-radius:3px; font-size:85%; line-height:1.45; padding:16px"><span></span><span>&gt;&gt;&gt;</span> <span style="color:#00f">from</span> <span>vimeo_downloader</span> <span style="color:#00f">import</span> <span>Vimeo</span>
-
-<span>&gt;&gt;&gt;</span> <span>v</span> <span>=</span> <span>Vimeo</span><span>(</span><span style="color:#a31515">'https://vimeo.com/503166067'</span><span>)</span>
-
-<span>&gt;&gt;&gt;</span> <span>meta</span> <span>=</span> <span>v</span><span>.</span><span>metadata</span>
-
-<span>&gt;&gt;&gt;</span> <span>meta</span><span>.</span><span>title</span>
-
-<span style="color:#a31515">"We Don't Have To Know - Keli Holiday"</span>
-
-<span>&gt;&gt;&gt;</span> <span>meta</span><span>.</span><span>likes</span>
-
-<span>214</span>
-
-<span>&gt;&gt;&gt;</span> <span>meta</span><span>.</span><span>views</span>
-
-<span>8039</span>
-
-<span>&gt;&gt;&gt;</span> <span>meta</span><span>.</span><span>_fields</span> <span style="color:#008000"># List of all meta data fields</span>
-
-<span>(</span><span style="color:#a31515">'id'</span><span>,</span> <span style="color:#a31515">'title'</span><span>,</span> <span style="color:#a31515">'description'</span><span>...</span><span>)</span> <span style="color:#008000"># Truncated for readability</span>
-
-<span>&gt;&gt;&gt;</span> <span>s</span> <span>=</span> <span>v</span><span>.</span><span>streams</span>
-
-<span>&gt;&gt;&gt;</span> <span>s</span>
-
-<span>[</span><span>Stream</span><span>(</span><span>240</span><span>p</span><span>),</span> <span>Stream</span><span>(</span><span>360</span><span>p</span><span>),</span> <span>Stream</span><span>(</span><span>540</span><span>p</span><span>),</span> <span>Stream</span><span>(</span><span>720</span><span>p</span><span>),</span> <span>Stream</span><span>(</span><span>1080</span><span>p</span><span>)]</span>
-
-<span>&gt;&gt;&gt;</span> <span>best_stream</span> <span>=</span> <span>s</span><span>[</span><span>-</span><span>1</span><span>]</span> <span style="color:#008000"># Select the best stream</span>
-
-<span>&gt;&gt;&gt;</span> <span>best_stream</span><span>.</span><span>filesize</span>
-
-<span style="color:#a31515">'166.589421 MB'</span>
-
-<span>&gt;&gt;&gt;</span> <span>best_stream</span><span>.</span><span>_direct_url</span>
-<span style="color:#a31515">'https://vod-progressive.../2298326263.mp4'</span>
-</pre>
-          </div>
-          <h2 style="font-family:sans-serif; font-weight:500; margin:0; font-size:125%">
-           Contributing
-          </h2>
-          <p>
-           Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-          </p>
-          <p>
-           Please make sure to update tests as appropriate.
-          </p>
-          <h2 style="font-family:sans-serif; font-weight:500; margin:0; font-size:125%">
-           License
-          </h2>
-          <p>
-           <a href="https://choosealicense.com/licenses/mit/" style="-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%">
-            MIT
-           </a>
           </p>
          </td>
         </tr>

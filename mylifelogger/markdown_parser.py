@@ -32,13 +32,13 @@ class HighlightRenderer(mistune.HTMLRenderer):
 def send_mail(id):
     session = session_factory()
     content = session.query(Event).filter_by(id=id).first()
-    session.close()
 
     if content is None:
         raise UsageError(f'No event with ID : {id}')
 
     _send_mail(content.title, content.html,
                send_to='yashrathicricket@gmail.com')
+    session.close()
 
 
 def _send_mail(title, html, send_to):

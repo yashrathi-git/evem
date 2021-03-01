@@ -10,6 +10,7 @@ from mylifelogger.exceptions import InvalidFormat, InvalidDate
 import pickle
 import os
 from mylifelogger.markdown_parser import parse_markdown, send_mail
+import readline
 
 
 def query_data():
@@ -78,9 +79,6 @@ def parse_date(str_date):
         except ValueError:
             raise InvalidFormat(f'Date not in valid format')
 
-        if str_date > datetime.date.today():
-            raise InvalidDate(
-                'Date created cannot be greater than today\'s date')
     else:
         str_date = datetime.date.today()
     return str_date
@@ -112,6 +110,21 @@ def prompt(text):
         f'{Fore.RED}{Style.BRIGHT}?{Style.RESET_ALL} {text}: {Fore.CYAN}')
     print(Style.RESET_ALL, end='')
     return user_input
+
+
+def increment_date(delta_time, date_obj, today_date):
+    """
+    If the reminder date is < today's date, it might mean that the program never executed on,
+    reminder date. Hence we could increment date so that user could be reminded next time on
+    that specific date
+    """
+    exec_counter = 0
+    while today_date > date_obj:
+        date_obj = date_obj + delta_time
+        if exec_counter == 20:
+            return False
+        exec_counter += 1
+    return date_obj
 
 
 @click.group()
@@ -236,7 +249,7 @@ def new(commit):
         session.commit()
         session.close()
         print(
-            '{Style.BRIGHT}{Fore.GREEN}(\u2713){Style.RESET_ALL} Event successfully commited.')
+            f'{Style.BRIGHT}{Fore.GREEN}(\u2713){Style.RESET_ALL} Event successfully commited.')
 
 
 @event.command('list')
@@ -277,15 +290,54 @@ def remind():
         if reminders is None:
             reminders = []
         for reminder in reminders:
-            if reminder.date == today:
+            if not reminder.repeat_forever and reminder.repeat <= 0:
+                session.delete(reminder)
+                session.commit()
+                continue
+
+            if reminder.date == today or reminder.date < today:
                 rdelta = relativedelta(years=reminder.year_delta,
                                        months=reminder.month_delta,
                                        days=reminder.day_delta)
-                send_mail(event.id)
-                print(f'{Style.BRIGHT}{Fore.GREEN}(\u2713){Style.RESET_ALL} '
-                      f'Sent mail for event titled {event.title}')
-                reminder.date += rdelta
-                session.commit()
+                if reminder.date < today:
+                    new_date = increment_date(rdelta, reminder.date, today)
+                    if not new_date == False:
+                        reminder.date = new_date
+                        session.commit()
+                if reminder.date == today:
+                    send_mail(event.id)
+                    print(f'{Style.BRIGHT}{Fore.GREEN}(\u2713){Style.RESET_ALL} '
+                          f'Sent mail for event titled {event.title}')
+                    reminder.date += rdelta
+                    if not reminder.repeat_forever:
+                        reminder.repeat -= 1
+                        session.commit()
+
+
+@cli.command('delete')
+@click.argument('id', type=int)
+def delete_event(id):
+    """
+        Delete event based on provided ID
+    """
+    session = session_factory()
+    event = session.query(Event).filter_by(id=id).first()
+    if not event:
+        raise click.UsageError(f'Event with ID {id} does\'t exists.')
+
+    title = event.title
+    session.delete(event)
+    session.commit()
+    session.close()
+    print(f'{Style.BRIGHT}{Fore.GREEN}(\u2713){Style.RESET_ALL} Deleted event titled "{title}"')
+
+
+@cli.command('request')
+@click.argument('id', type=int)
+def request(id):
+    send_mail(id=id)
+    print(f'{Style.BRIGHT}{Fore.GREEN}(\u2713){Style.RESET_ALL} '
+          f'Sent mail for event titled with ID : {id}')
 
 
 if __name__ == '__main__':
