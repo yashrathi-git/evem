@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <title>
+   Started learning JS today
+  </title>
+  <style type="text/css">
+   div[style*="margin: 16px 0;"] {margin:0}
+  </style>
+ </head>
+ <body bgcolor="#f2f2f2" style='-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%; font-family:"Average Sans", sans-serif; font-size:14px; margin:0; padding:0; width:100%; background-color:#f2f2f2' width="100%">
+  <center>
+   <div style="background-color: #f2f2f2; max-width: 640px; margin: auto">
+    <!--[if mso]>
+    <table role="presentation" width="640" cellspacing="0" cellpadding="0" border="0" align="center">
+    <tr>
+    <td>
+    <![endif]-->
+    <table align="center" bgcolor="#FFFFFF" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%; mso-table-lspace:0; mso-table-rspace:0; border-collapse:collapse; max-width:640px; width:100%" width="100%">
+     <tr>
+      <td align="center" style="-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%; mso-table-lspace:0; mso-table-rspace:0; padding:10px" valign="top">
+       <table align="center" border="0" cellpadding="0" cellspacing="0" style="-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%; mso-table-lspace:0; mso-table-rspace:0; border-collapse:collapse; max-width:600px; width:100%" width="100%">
+        <tr bgcolor="#eee">
+         <td align="center" style="-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%; mso-table-lspace:0; mso-table-rspace:0; padding:10px" valign="top">
+          <h1 style="font-family:sans-serif; font-weight:500; margin:0; font-size:200%">
+           <a href="" style="-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%; text-decoration:none">
+            Event Reminder
+           </a>
+          </h1>
+          <p style="font-size:16px; font-weight:300; margin:0">
+           Started learning JS today
+          </p>
+         </td>
+        </tr>
+        <tr>
+         <td align="left" style="-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%; mso-table-lspace:0; mso-table-rspace:0; padding:10px" valign="top">
+          <strong>
+           Short Description:
+          </strong>
+          Started to learn JS today
+         </td>
+        </tr>
+        <tr>
+         <td align="left" style="-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%; mso-table-lspace:0; mso-table-rspace:0; padding:10px" valign="top">
+          <!--
+This file supports markdown formatting.
+Use markdown to format the text. This markdown gets parsed into html when sending email.
+
+More information about markdown formatting:
+https://guides.github.com/features/mastering-markdown/
+
+Available variables(data inputted by you are available as variables):
+title => Title for the event
+date_created => Date of occurence of event
+short_description
+time_since => Time since event occurance
+
+Variables can be used with this syntax =>
+
+-->
+          <p>
+           <strong>
+            Time since event
+           </strong>
+           : a moment
+          </p>
+          <h1 style="font-family:sans-serif; font-weight:500; margin:0; font-size:200%">
+           Vimeo Downloader
+          </h1>
+          <p>
+           Download Vimeo videos and retrieve metadata such as views, likes, comments, duration.
+          </p>
+          <ul>
+           <li style="font-size:100%">
+            <p>
+             Easy to use and friendly API.
+            </p>
+           </li>
+           <li style="font-size:100%">
+            <p>
+             Support for downloading private and embed Vimeo videos.
+            </p>
+           </li>
+           <li style="font-size:100%">
+            <p>
+             Retrieve direct URL for the video file.
+            </p>
+           </li>
+           <li style="font-size:100%">
+            <p>
+             Tested on Python and 3.6, 3.7, 3.8, 3.9
+            </p>
+           </li>
+          </ul>
+          <h2 style="font-family:sans-serif; font-weight:500; margin:0; font-size:125%">
+           Installation
+          </h2>
+          <div style="background:#fff">
+           <pre style="border-radius:3px; font-size:85%; line-height:1.45; padding:16px"><span></span>pip install vimeo_downloader
+</pre>
+          </div>
+          <h2 style="font-family:sans-serif; font-weight:500; margin:0; font-size:125%">
+           Usage
+          </h2>
+          <div style="background:#fff">
+           <pre style="border-radius:3px; font-size:85%; line-height:1.45; padding:16px"><span></span><span>&gt;&gt;&gt;</span> <span style="color:#00f">from</span> <span>vimeo_downloader</span> <span style="color:#00f">import</span> <span>Vimeo</span>
+
+<span>&gt;&gt;&gt;</span> <span>v</span> <span>=</span> <span>Vimeo</span><span>(</span><span style="color:#a31515">'https://vimeo.com/503166067'</span><span>)</span>
+
+<span>&gt;&gt;&gt;</span> <span>meta</span> <span>=</span> <span>v</span><span>.</span><span>metadata</span>
+
+<span>&gt;&gt;&gt;</span> <span>meta</span><span>.</span><span>title</span>
+
+<span style="color:#a31515">"We Don't Have To Know - Keli Holiday"</span>
+
+<span>&gt;&gt;&gt;</span> <span>meta</span><span>.</span><span>likes</span>
+
+<span>214</span>
+
+<span>&gt;&gt;&gt;</span> <span>meta</span><span>.</span><span>views</span>
+
+<span>8039</span>
+
+<span>&gt;&gt;&gt;</span> <span>meta</span><span>.</span><span>_fields</span> <span style="color:#008000"># List of all meta data fields</span>
+
+<span>(</span><span style="color:#a31515">'id'</span><span>,</span> <span style="color:#a31515">'title'</span><span>,</span> <span style="color:#a31515">'description'</span><span>...</span><span>)</span> <span style="color:#008000"># Truncated for readability</span>
+
+<span>&gt;&gt;&gt;</span> <span>s</span> <span>=</span> <span>v</span><span>.</span><span>streams</span>
+
+<span>&gt;&gt;&gt;</span> <span>s</span>
+
+<span>[</span><span>Stream</span><span>(</span><span>240</span><span>p</span><span>),</span> <span>Stream</span><span>(</span><span>360</span><span>p</span><span>),</span> <span>Stream</span><span>(</span><span>540</span><span>p</span><span>),</span> <span>Stream</span><span>(</span><span>720</span><span>p</span><span>),</span> <span>Stream</span><span>(</span><span>1080</span><span>p</span><span>)]</span>
+
+<span>&gt;&gt;&gt;</span> <span>best_stream</span> <span>=</span> <span>s</span><span>[</span><span>-</span><span>1</span><span>]</span> <span style="color:#008000"># Select the best stream</span>
+
+<span>&gt;&gt;&gt;</span> <span>best_stream</span><span>.</span><span>filesize</span>
+
+<span style="color:#a31515">'166.589421 MB'</span>
+
+<span>&gt;&gt;&gt;</span> <span>best_stream</span><span>.</span><span>_direct_url</span>
+<span style="color:#a31515">'https://vod-progressive.../2298326263.mp4'</span>
+</pre>
+          </div>
+          <h2 style="font-family:sans-serif; font-weight:500; margin:0; font-size:125%">
+           Contributing
+          </h2>
+          <p>
+           Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+          </p>
+          <p>
+           Please make sure to update tests as appropriate.
+          </p>
+          <h2 style="font-family:sans-serif; font-weight:500; margin:0; font-size:125%">
+           License
+          </h2>
+          <p>
+           <a href="https://choosealicense.com/licenses/mit/" style="-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%">
+            MIT
+           </a>
+          </p>
+         </td>
+        </tr>
+       </table>
+      </td>
+     </tr>
+    </table>
+    <!--[if mso]>
+    </td>
+    </tr>
+    </table>
+    <![endif]-->
+   </div>
+   <p style="
+          border-top: 1px solid #c6c6c6;
+          color: #a9a9a9;
+          margin-top: 50px;
+          padding-top: 20px;
+          font-size: 13px;
+          margin-bottom: 13px;
+        ">
+    <strong>
+     Date Of Event:
+    </strong>
+    March 01, 2021
+   </p>
+   <p style="color: #a9a9a9;margin-bottom: 13px;font-size:13px;">
+    This is an automated mail.
+   </p>
+  </center>
+ </body>
+</html>

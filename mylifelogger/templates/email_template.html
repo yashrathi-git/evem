@@ -151,7 +151,7 @@
               >
                 <tr bgcolor="#eee">
                   <td align="center" valign="top" style="padding: 10px">
-                    <h1><a href=".">Event Reminder</a></h1>
+                    <h1><a href="">Event Reminder</a></h1>
                     <p class="lead">{{title}}</p>
                   </td>
                 </tr>
@@ -163,7 +163,7 @@
                 <tr>
                   
                   <td align="left" valign="top" style="padding: 10px">
-                    {{email_content}}
+                    {{email_content | safe}}
                   </td>
                 </tr>
               </table>

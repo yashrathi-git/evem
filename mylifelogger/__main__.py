@@ -9,13 +9,15 @@ from dateutil.relativedelta import relativedelta
 from mylifelogger.exceptions import InvalidFormat, InvalidDate
 import pickle
 import os
+from mylifelogger.markdown_parser import parse_markdown, send_mail
 
 
-def query_data(id=None):
-    if id is None:
-        session = session_factory()
-        return session.query(Event).order_by(Event.date_created).all()
-        session.close()
+def query_data():
+    session = session_factory()
+    data = session.query(Event).order_by(Event.date_created).all()
+    if data:
+        return data
+    return []
 
 
 def print_date(years, months, days):
@@ -154,6 +156,10 @@ def new(commit):
             short_description = title
         try:
             date_created = parse_date(date_created)
+            base_date = parse_date(base_date)
+            if date_created > datetime.date.today():
+                raise Exception(
+                    'date-of-event cannot be bigger than today\'s date.')
         except Exception as e:
             raise click.UsageError(f'{Fore.RED}{e}{Style.RESET_ALL}')
         if not base_date:
@@ -195,9 +201,13 @@ def new(commit):
 
             model_objects['reminder_dates'].append(reminder)
 
-        markdown_file = path_join(BASEDIR, 'markdown/description.md')
+        markdown_file = path_join(BASEDIR, 'markdown', 'description.md')
+        template_markdown = path_join(BASEDIR, 'templates', 'markdown.md')
         with open(markdown_file, 'w') as file:
-            file.write('')
+            # Read from template markdown
+            with open(template_markdown) as template_file:
+                # Write starter template to this file
+                file.write(template_file.read())
 
         pickle_object(model_objects)
 
@@ -218,13 +228,15 @@ def new(commit):
         event = model_objects['event']
 
         event.long_description = read_markdown()
+        event.html = parse_markdown(event)
         session = session_factory()
         session.add(event)
         for model in model_objects['reminder_dates']:
             session.add(model)
         session.commit()
         session.close()
-        print('Event successfully commited.')
+        print(
+            '{Style.BRIGHT}{Fore.GREEN}(\u2713){Style.RESET_ALL} Event successfully commited.')
 
 
 @event.command('list')
@@ -253,6 +265,27 @@ def read_data(oneline):
                     print(f' (repeats {reminder.repeat} times)')
         if not oneline:
             print()
+
+
+@cli.command('remind')
+def remind():
+    session = session_factory()
+    events = session.query(Event).all()
+    today = datetime.date.today()
+    for event in events:
+        reminders = event.reminder_dates
+        if reminders is None:
+            reminders = []
+        for reminder in reminders:
+            if reminder.date == today:
+                rdelta = relativedelta(years=reminder.year_delta,
+                                       months=reminder.month_delta,
+                                       days=reminder.day_delta)
+                send_mail(event.id)
+                print(f'{Style.BRIGHT}{Fore.GREEN}(\u2713){Style.RESET_ALL} '
+                      f'Sent mail for event titled {event.title}')
+                reminder.date += rdelta
+                session.commit()
 
 
 if __name__ == '__main__':

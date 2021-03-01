@@ -12,6 +12,7 @@ class Event(Base):
     date_created = Column('date_created', Date, nullable=False)
     long_description = Column(
         'long_description', String(1_000), nullable=False)
+    html = Column('html', String(10_000), default='')
 
     def __repr__(self):
         return (
@@ -19,11 +20,12 @@ class Event(Base):
              f'"{self.long_description}">')
         )
 
-    def __init__(self, title, short_description, long_description, date_created):
+    def __init__(self, title, short_description, long_description, date_created, html=''):
         self.title = title
         self.short_description = short_description
         self.long_description = long_description
         self.date_created = date_created
+        self.html = html
 
     def __str__(self):
         return f'Event({self.id})'
