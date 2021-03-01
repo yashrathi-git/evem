@@ -3,7 +3,7 @@ from colorama import init, Fore, Style
 import re
 from mylifelogger.models import ReminderDates, Event
 import datetime
-from mylifelogger import session_factory, BASEDIR
+from mylifelogger import session_factory, BASEDIR, create_dir_if_not_exists
 from os.path import join as path_join
 from dateutil.relativedelta import relativedelta
 from mylifelogger.exceptions import InvalidFormat, InvalidDate
@@ -40,15 +40,6 @@ def read_markdown():
     with open(path) as file:
         des = file.read()
     return des
-
-
-def create_dir_if_not_exists(path: str, dirname: str) -> str:
-    dir_path = path_join(path, dirname)
-    try:
-        os.mkdir(dir_path)
-    except FileExistsError:
-        pass
-    return dir_path
 
 
 def unpickle_object():
@@ -214,6 +205,7 @@ def new(commit):
 
             model_objects['reminder_dates'].append(reminder)
 
+        create_dir_if_not_exists(BASEDIR, 'markdown')
         markdown_file = path_join(BASEDIR, 'markdown', 'description.md')
         template_markdown = path_join(BASEDIR, 'templates', 'markdown.md')
         with open(markdown_file, 'w') as file:
