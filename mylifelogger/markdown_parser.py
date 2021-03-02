@@ -1,23 +1,32 @@
-from premailer import transform
-from mylifelogger import session_factory, BASEDIR
-from mylifelogger.models import Event
-from os.path import join as path_join
-import mistune
-from pygments import highlight
-from pygments.lexers import get_lexer_by_name
-from pygments.formatters import html
-from jinja2 import Template
-from bs4 import BeautifulSoup
+import datetime
+import os
 import smtplib
 from email.message import EmailMessage
-import datetime
-from humanize import naturaldelta
-from colorama import Fore, Style
-from click import UsageError
-import os
+from os.path import join as path_join
 
-EMAIL_ADDRESS = os.environ.get('EMAIL')
-EMAIL_PASSWORD = os.environ.get('PASSWORD')
+import mistune
+from bs4 import BeautifulSoup
+from click import UsageError
+from colorama import Fore, Style
+from humanize import naturaldelta
+from jinja2 import Template
+from premailer import transform
+from pygments import highlight
+from pygments.formatters import html
+from pygments.lexers import get_lexer_by_name
+
+from mylifelogger import BASEDIR, send_to, session_factory, warn
+from mylifelogger.models import Event
+
+try:
+    EMAIL_ADDRESS = os.environ['EMAIL']
+    EMAIL_PASSWORD = os.environ['PASSWORD']
+except KeyError:
+    EMAIL_PASSWORD = None
+    EMAIL_ADDRESS = None
+    print((f'{Fore.LIGHTYELLOW_EX}[WARNING]: `EMAIL` or `PASSWORD`'
+           f' environment variables not found.'
+           f' These are needed in order to send emails.{Style.RESET_ALL}'))
 
 
 class HighlightRenderer(mistune.HTMLRenderer):
@@ -30,6 +39,12 @@ class HighlightRenderer(mistune.HTMLRenderer):
 
 
 def send_mail(id):
+    if not send_to:
+        raise UsageError(warn)
+    if not (EMAIL_ADDRESS and EMAIL_PASSWORD):
+        raise UsageError('`EMAIL` or `PASSWORD`'
+                         ' environment variables not found.'
+                         ' These are needed in order to send emails.')
     session = session_factory()
     content = session.query(Event).filter_by(id=id).first()
 
@@ -37,7 +52,7 @@ def send_mail(id):
         raise UsageError(f'No event with ID : {id}')
 
     _send_mail(content.title, content.html,
-               send_to='yashrathicricket@gmail.com')
+               send_to=send_to)
     session.close()
 
 
@@ -49,6 +64,7 @@ def _send_mail(title, html, send_to):
     msg.add_header('Content-Type', 'text/html')
 
     msg.set_content(html, subtype='html')
+
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
         smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
         smtp.send_message(msg)

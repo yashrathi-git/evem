@@ -1,6 +1,7 @@
+from sqlalchemy import Boolean, Column, Date, ForeignKey, Integer, String
+from sqlalchemy.orm import backref, relationship
+
 from mylifelogger import Base
-from sqlalchemy import Column, String, Date, Integer, ForeignKey, Boolean, PickleType
-from sqlalchemy.orm import relationship, backref
 
 
 class Event(Base):

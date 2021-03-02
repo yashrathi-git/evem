@@ -1,16 +1,18 @@
-import click
-from colorama import init, Fore, Style
-import re
-from mylifelogger.models import ReminderDates, Event
 import datetime
-from mylifelogger import session_factory, BASEDIR, create_dir_if_not_exists
-from os.path import join as path_join
-from dateutil.relativedelta import relativedelta
-from mylifelogger.exceptions import InvalidFormat, InvalidDate
-import pickle
 import os
-from mylifelogger.markdown_parser import parse_markdown, send_mail
+import pickle
+import re
 import readline
+from os.path import join as path_join
+
+import click
+from colorama import Fore, Style, init
+from dateutil.relativedelta import relativedelta
+
+from mylifelogger import BASEDIR, create_dir_if_not_exists, session_factory
+from mylifelogger.exceptions import InvalidFormat
+from mylifelogger.markdown_parser import parse_markdown, send_mail
+from mylifelogger.models import Event, ReminderDates
 
 
 def query_data():
@@ -68,7 +70,7 @@ def parse_date(str_date):
             str_date = [int(x) for x in str_date]
             str_date = datetime.date(*str_date[::-1])
         except ValueError:
-            raise InvalidFormat(f'Date not in valid format')
+            raise InvalidFormat('Date not in valid format')
 
     else:
         str_date = datetime.date.today()
@@ -130,7 +132,7 @@ def cli():
 @cli.group()
 def event():
     """
-        Add, list, delete and edit events
+        Create new events and list existing events.
     """
     pass
 
@@ -274,8 +276,9 @@ def read_data(oneline):
 
 @cli.command('remind')
 def remind():
-    with open('/home/yashrathi/Desktop/test.txt', 'w') as file:
-        file.write('This is proof that script ran')
+    """
+    Checks all events and set reminder mail. 
+    """
     session = session_factory()
     events = session.query(Event).all()
     today = datetime.date.today()
@@ -329,6 +332,9 @@ def delete_event(id):
 @cli.command('request')
 @click.argument('id', type=int)
 def request(id):
+    """
+    Send email for a particular event. Takes in ID as argument.
+    """
     send_mail(id=id)
     print(f'{Style.BRIGHT}{Fore.GREEN}(\u2713){Style.RESET_ALL} '
           f'Sent mail for event titled with ID : {id}')
