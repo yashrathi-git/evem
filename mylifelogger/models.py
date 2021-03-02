@@ -11,7 +11,7 @@ class Event(Base):
         'short_description', String(100), nullable=False)
     date_created = Column('date_created', Date, nullable=False)
     long_description = Column(
-        'long_description', String(1_000), nullable=False)
+        'long_description', String(10_000), nullable=False)
     html = Column('html', String(10_000), default='')
 
     def __repr__(self):

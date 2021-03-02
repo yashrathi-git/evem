@@ -274,6 +274,8 @@ def read_data(oneline):
 
 @cli.command('remind')
 def remind():
+    with open('/home/yashrathi/Desktop/test.txt', 'w') as file:
+        file.write('This is proof that script ran')
     session = session_factory()
     events = session.query(Event).all()
     today = datetime.date.today()
