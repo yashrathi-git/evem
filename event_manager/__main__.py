@@ -125,7 +125,7 @@ def increment_date(delta_time, date_obj, today_date):
 @click.version_option()
 def cli():
     """
-        Creates events that are reminded to user periodically on configured email address.
+        A command line script for periodic reminders of events via email.
     """
     pass
 
@@ -176,8 +176,17 @@ def new(commit):
         print(
             f'\n{Fore.MAGENTA}Date are calculated for time after `base-date`{Style.RESET_ALL}')
         print(Fore.LIGHTYELLOW_EX+'Syntax: ')
-        print(syntax+Style.RESET_ALL)
-        print(f'{Fore.MAGENTA}Enter q to exit{Style.RESET_ALL}\n')
+        print(syntax)
+        print('\nExamples:')
+        print(
+            'period = (0,1,0), repeat = 10      # means to remind every month for 10 times')
+        print(
+            'period = (0,0,14), repeat = *      # means to remind every 14 days (forever)')
+        print(
+            'period = (1,0,0), repeat = 1       # means remind after 1 year (1 time only)')
+        print(Style.RESET_ALL)
+        print(
+            f'{Fore.RED}Enter q to exit (There should be atleast one reminder){Style.RESET_ALL}\n')
 
         event = Event(title, short_description,
                       long_description='', date_created=date_created)
