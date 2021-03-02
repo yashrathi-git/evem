@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, Date, ForeignKey, Integer, String
 from sqlalchemy.orm import backref, relationship
 
-from mylifelogger import Base
+from event_manager import Base
 
 
 class Event(Base):

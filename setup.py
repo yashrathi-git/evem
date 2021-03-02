@@ -1,9 +1,9 @@
 from setuptools import setup
 
 setup(
-    name="mylifelogger",
+    name="event_manager",
     version="1.0",
-    packages=["mylifelogger"],
+    packages=["event_manager"],
     include_package_data=True,
     install_requires=["Pygments==2.3.1",
                       "colorama==0.4.3",
@@ -18,6 +18,6 @@ setup(
                       ],
     entry_points="""
         [console_scripts]
-        mll=mylifelogger.__main__:cli
+        evem=event_manager.__main__:cli
     """,
 )

@@ -9,10 +9,11 @@ import click
 from colorama import Fore, Style, init
 from dateutil.relativedelta import relativedelta
 
-from mylifelogger import BASEDIR, create_dir_if_not_exists, session_factory
-from mylifelogger.exceptions import InvalidFormat
-from mylifelogger.markdown_parser import parse_markdown, send_mail
-from mylifelogger.models import Event, ReminderDates
+from event_manager import (BASEDIR, create_dir_if_not_exists,
+                           insert_into_config_email, session_factory)
+from event_manager.exceptions import InvalidFormat
+from event_manager.markdown_parser import parse_markdown, send_mail
+from event_manager.models import Event, ReminderDates
 
 
 def query_data():
@@ -222,7 +223,7 @@ def new(commit):
         print('Run following commands to complete event creation:')
         print(f'Edit the file with suitable description{Style.RESET_ALL}')
         print(f'\n>> {Fore.LIGHTBLUE_EX}nano {markdown_file}{Style.RESET_ALL}')
-        print(f'>> {Fore.LIGHTBLUE_EX}mll event new --commit{Style.RESET_ALL}')
+        print(f'>> {Fore.LIGHTBLUE_EX}evem event new --commit{Style.RESET_ALL}')
 
     else:
         model_objects = unpickle_object()
@@ -338,6 +339,17 @@ def request(id):
     send_mail(id=id)
     print(f'{Style.BRIGHT}{Fore.GREEN}(\u2713){Style.RESET_ALL} '
           f'Sent mail for event titled with ID : {id}')
+
+
+@cli.command('init')
+def initial_setup():
+    """
+    Initialize email.
+    """
+    email = prompt('Email to send reminders to')
+    insert_into_config_email(email)
+    print(f'{Style.BRIGHT}{Fore.GREEN}(\u2713){Style.RESET_ALL} '
+          f'Email: {email}')
 
 
 if __name__ == '__main__':

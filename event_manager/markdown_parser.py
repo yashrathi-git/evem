@@ -15,8 +15,8 @@ from pygments import highlight
 from pygments.formatters import html
 from pygments.lexers import get_lexer_by_name
 
-from mylifelogger import BASEDIR, send_to, session_factory, warn
-from mylifelogger.models import Event
+from event_manager import BASEDIR, WARN, send_to, session_factory
+from event_manager.models import Event
 
 try:
     EMAIL_ADDRESS = os.environ['EMAIL']
@@ -40,7 +40,7 @@ class HighlightRenderer(mistune.HTMLRenderer):
 
 def send_mail(id):
     if not send_to:
-        raise UsageError(warn)
+        raise UsageError(WARN)
     if not (EMAIL_ADDRESS and EMAIL_PASSWORD):
         raise UsageError('`EMAIL` or `PASSWORD`'
                          ' environment variables not found.'

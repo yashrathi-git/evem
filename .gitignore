@@ -1,13 +1,12 @@
-mylifelogger/__pycache__
-mylifelogger/database/data.sqlite
-mylifelogger/database
+event_manager/__pycache__
+event_manager/database/data.sqlite
+event_manager/database
 
-mylifelogger.egg-info
+event_manager.egg-info
 
-mylifelogger/markdown/description.md
-mylifelogger/markdown/preview.html
-mylifelogger/markdown
+event_manager/markdown/description.md
+event_manager/markdown/preview.html
+event_manager/markdown
 
-mylifelogger/cache/__object__.cache
-mylifelogger/cache
-
+event_manager/cache/__object__.cache
+event_manager/cache
