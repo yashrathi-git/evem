@@ -6,3 +6,4 @@ mylifelogger.egg-info
 mylifelogger/markdown/description.md
 mylifelogger/markdown/preview.html
 
+mylifelogger/cache/__object__.cache
