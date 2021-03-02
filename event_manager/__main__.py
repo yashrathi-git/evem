@@ -350,9 +350,3 @@ def initial_setup():
     insert_into_config_email(email)
     print(f'{Style.BRIGHT}{Fore.GREEN}(\u2713){Style.RESET_ALL} '
           f'Email: {email}')
-
-
-if __name__ == '__main__':
-
-    print('HERE')
-    init()
