@@ -15,12 +15,6 @@ class Event(Base):
         'long_description', String(10_000), nullable=False)
     html = Column('html', String(10_000), default='')
 
-    def __repr__(self):
-        return (
-            (f'<Event({self.id}, "{self.title}", "{self.short_description}", "{self.date_created}", '
-             f'"{self.long_description}">')
-        )
-
     def __init__(self, title, short_description, long_description, date_created, html=''):
         self.title = title
         self.short_description = short_description
@@ -58,14 +52,3 @@ class ReminderDates(Base):
         self.day_delta = day_delta
         self.month_delta = month_delta
         self.year_delta = year_delta
-
-    def __repr__(self):
-        repres = ('<ReminderDates('
-                  f'event = {self.event}, '
-                  f'day_delta = {self.day_delta}, '
-                  f'month_delta = {self.month_delta}, '
-                  f'year_delta = {self.year_delta}, '
-                  f'repeat = {self.repeat}, '
-                  f'repeat_forever = {self.repeat_forever}, '
-                  f'date = {self.date})>')
-        return repres
