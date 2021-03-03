@@ -36,7 +36,7 @@
 
 ## About The Project
 
-![demo](https://raw.githubusercontent.com/yashrathi-git/evem/main/images/demo.png)
+![demo](/images/demo.jpeg "Email Demo")
 
 You could create a new event (with markdown support for description) and set a reminder on a particular date or periodic reminder (like every 2 months, every year...). Evem will send emails on those dates with that information.
 
