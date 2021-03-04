@@ -42,11 +42,9 @@ You could create a new event (with markdown support for description) and set a r
 
 When it could be useful:
 
-- It could be used to periodically check in, on your progress on something you want to learn
-- It could help motivate you and really track your progress
-- For reminders for certain events on particular date or periodically(like someone's birthday)
-
-A list of commonly used resources that I find helpful are listed in the acknowledgements.
+- It could be useful to periodically check in, on your progress on something
+- For setting weekly and monthly goals and tracking progress.
+- As reminder for certain events on **particular date or periodically**(like someone's birthday)
 
 <!-- GETTING STARTED -->
 
