@@ -43,8 +43,8 @@ You could create a new event (with markdown support for description) and set a r
 When it could be useful:
 
 - It could be useful to periodically check in, on your progress on something
-- For setting weekly and monthly goals and tracking progress.
-- As reminder for certain events on **particular date or periodically**(like someone's birthday)
+- For tracking weekly or monthly goals.
+- Or just as reminder for certain events on **particular date or periodically**(like someone's birthday)
 
 <!-- GETTING STARTED -->
 
