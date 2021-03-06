@@ -123,6 +123,11 @@ evem event list --oneline
 
 evem request <id>    # Send mail for particular ID.
 evem delete <id>     # Delete event based on provided ID
+
+evem edit <id> --markdown # Edit markdown from event of that ID
+evem edit <id> --title "New Title!"
+evem edit --help # For full list of available options
+
 ```
 
 <!-- CONTRIBUTING -->
