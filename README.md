@@ -36,7 +36,7 @@
 
 ## About The Project
 <p align="center">
-![Email Demo](images/demo.png "Email demo")
+<img src="images/demo.png" alt = "Demo">
 </p>
 You could create a new event (with markdown support for description) and set a reminder on a particular date or periodic reminder (like every 2 months, every year...). Evem will send emails on those dates with that information.
 
