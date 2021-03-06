@@ -149,14 +149,15 @@ def reminder(event: Event, base_date: datetime) -> list:
             )
         )
 
-        if repeat == True:
+        if type(repeat) == bool and repeat == True:
             reminder = ReminderDates(
                 event=event,
-                repeat_forever=repeat,
+                repeat_forever=True,
                 date=reminder_date,
                 year_delta=delta_dates[0],
                 month_delta=delta_dates[1],
                 day_delta=delta_dates[2],
+                repeat=0,
             )
         else:
             reminder = ReminderDates(
@@ -166,6 +167,7 @@ def reminder(event: Event, base_date: datetime) -> list:
                 year_delta=delta_dates[0],
                 month_delta=delta_dates[1],
                 day_delta=delta_dates[2],
+                repeat_forever=False,
             )
 
         reminder_dates.append(reminder)
