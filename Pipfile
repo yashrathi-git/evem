@@ -4,17 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-colorama = "*"
-premailer = "*"
-mistune = "*"
-humanize = "*"
-click = "*"
-beautifulsoup4 = "*"
-python-dateutil = "*"
-Pygments = "*"
-SQLAlchemy = "*"
-Jinja2 = "*"
-event-manager = {path = "."}
+event-manager = {editable = true, path = "."}
 
 [dev-packages]
 
