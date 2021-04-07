@@ -363,7 +363,8 @@ def remind():
                     reminder.date += rdelta
                     if not reminder.repeat_forever:
                         reminder.repeat -= 1
-                        session.commit()
+                    print(f"Next reminder for '{event.title}' on {reminder.date}")
+                    session.commit()
 
 
 @cli.command("delete")
