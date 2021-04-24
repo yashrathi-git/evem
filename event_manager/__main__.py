@@ -23,6 +23,8 @@ try:
 except ImportError:
     pass
 
+init()
+
 
 def query_data():
     session = session_factory()
