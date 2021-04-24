@@ -2,7 +2,6 @@ import datetime
 import os
 import pickle
 import re
-import readline
 from os.path import join as path_join
 
 import click
@@ -18,6 +17,11 @@ from event_manager import (
 from event_manager.exceptions import InvalidFormat
 from event_manager.markdown_parser import parse_markdown, send_mail
 from event_manager.models import Event, ReminderDates
+
+try:
+    import readline
+except ImportError:
+    pass
 
 
 def query_data():
