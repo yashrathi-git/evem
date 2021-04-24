@@ -469,3 +469,27 @@ def edit(
         f"{Style.BRIGHT}{Fore.GREEN}(\u2713){Style.RESET_ALL} "
         "Changes commited if any."
     )
+
+
+@cli.command("view")
+@click.option("--id", required=True, type=int)
+def view_event_details(id):
+    """
+    Print the description(markdown) of event to terminal.
+    """
+    try:
+        from rich.console import Console
+        from rich.markdown import Markdown
+    except ImportError:
+        print("For this feature to work, you need to install rich")
+        print("You could install it with:")
+        print("pip install rich")
+        raise click.Abort()
+    session = session_factory()
+    event: Event = session.query(Event).filter_by(id=id).first()
+    if event is None:
+        raise click.UsageError("Unable to find event")
+    markdown = event.long_description
+    console = Console()
+    md = Markdown(markdown)
+    console.print(md)
